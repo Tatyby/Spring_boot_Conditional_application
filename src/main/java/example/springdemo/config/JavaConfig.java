@@ -1,0 +1,24 @@
+package example.springdemo.config;
+
+import example.springdemo.profile.DevProfile;
+import example.springdemo.profile.ProductionProfile;
+import example.springdemo.profile.SystemProfile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class JavaConfig {
+    @Bean
+    @ConditionalOnProperty(value = "netology.profile.dev", havingValue = "true")
+    public SystemProfile devProfile() {
+        return new DevProfile();
+    }
+
+    @Bean
+    @ConditionalOnProperty(value = "netology.profile.dev", havingValue = "false")
+    public SystemProfile prodProfile() {
+        return new ProductionProfile();
+    }
+}
